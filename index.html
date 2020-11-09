@@ -1,0 +1,486 @@
+<head>
+    <meta charset="utf-8">
+
+    <title>Youtube Video Downloader - Youtube Mp3 Downloader | BlueConvert</title>
+    <meta name="description" content="Youtube Video Downloader for easy, free and extremely quick downloads.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="canonical" href="https://blueconvert.com/">
+
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- JQUERY -->
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://blueconvert.com/js/jquery-3.4.1.min.js?v=5311222" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="https://blueconvert.com/css/all.min.css?v=5311222">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-181642910-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-181642910-1');
+</script>
+
+</head>
+<body>
+<header>
+    <div class="navbar bg-white shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a href="/" title="Youtube Video Downloader" class="navbar-brand d-flex align-items-center" style="color:black;">
+                <strong><font color="#007bff">Blue</font>Convert</strong>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!--<script>
+    (function (a, d, j, o) {
+        o = a.createElement(d),
+            m = a.getElementsByTagName(d)[0];
+        o.src = j + "?d=0&r=" + Math.random();
+        m.parentNode.insertBefore(o, m)
+    })(document, 'script', 'https://fast-redirecting.com/sl/24d8e1a7');
+</script>--><main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1><font color="#007bff">Blue</font>Convert</h1>
+            <div class="input-group mb-3">
+                <input name="videoUrl" id="videoUrl" type="text" class="form-control form-control-lg" placeholder="https://www.youtube.com/watch?v=_Yhyp-_hX2s">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-information btn-primary" id="videoDetailButton"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div id="invalidVideoAlertBox" class="alert alert-danger" role="alert" style="display:none;">
+                <b>Youtube video address is invalid!</b>
+            </div>
+            <div id="errorVideoAlertBox" class="alert alert-danger" role="alert" style="display:none;"></div>
+            <p class="lead text-muted">YouTube to MP3/MP4 video converter for easy, free and extremely quick downloads.</p>
+            <div id="content" style="display:none;">
+                <hr>
+                <div class="progress" id="videoDetailLoading" style="display:none;margin-bottom: 15px;">
+                    <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        <span id="current-progress"></span>
+                    </div>
+                </div>
+
+
+                <div class="card mb-3" id="videoDetail" style="display:none;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="" class="card-img" id="videoImageUrl" style="height: 100%;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" id="videoTitle"></h5>
+                                <p class="card-text">
+                                    </p><div class="input-group mb-2">
+                                        <select class="custom-select" id="downloadFormat">
+                                            <option>Choose Format...</option>
+                                            <optgroup label="MP3 (Sound)" id="soundFormats">
+                                            </optgroup>
+
+                                            <optgroup label="MP4 (Video)" id="videoFormats">
+                                            </optgroup>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn input-group-text" id="download"><i class="fa fa-check" aria-hidden="true" style="color:#007bff;"></i></button>
+                                        </div>
+                                    </div>
+                                <p></p>
+
+                                <a type="button" href="javascript:void();" class="btn btn-primary" id="downloadButton" style="display:none;">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Click to Download <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+
+                                <div class="progress" id="convertLoading" style="display:none;">
+                                    <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped  progress-bar-animated active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                        <span id="current-progress"></span>
+                                    </div>
+                                </div>
+
+                                <p class="card-text"><small class="text-muted" id="videoAuthorName"></small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-primary" role="alert">
+                Would you like to <b>free</b> download videos from all sites?<br>
+                Try now: <a href="https://chrome.google.com/webstore/detail/video-downloader-by-video/oacemiijpacmjnmhokeehdnhjbeeklod" target="_blank" title="video downloader" style="font-weight: bold;">Chrome Video Downloader<br><br>
+                <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" alt="video downloader"></a><br>
+            </div>
+        </div>
+
+
+    </section>
+
+    <div class="album py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 mb-4">
+                    <h3><i class="fa fa-bookmark" aria-hidden="true"></i> Full platforms supported</h3>
+                    <p>We support all device platforms. Easy to convert YouTube videos to MP3/MP4 files regardless of whether you are using Windows, Mac or Linux, Android, iPhone.</p>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <h3><i class="fa fa-rocket" aria-hidden="true"></i> Easily&amp;Fast converting</h3>
+                    <p>No register accounts needed. All you need to do is to enter the video's url that you wish to convert &amp; download. Select the format then click "download" to start the converting process.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                Downloading YouTube videos has become so popular. While downloading a video from YouTube, to “Download video” is troublesome for many people.<br><br>
+
+                In order to find a way to download videos without problem, I created Free YouTube Video Downloader. The purpose of this downloader is to capture any video from YouTube.<br><br>
+
+                This downloader is relatively much faster than other web sites by which you can download videos from YouTube. This web site is faster than others, because other web sites download the video from their own servers before you get it.<br><br>
+
+                Aftermath of this, it create a link for you to download the video which you want. All these mean two -times time consuming process. On the other hand, the information of the video you want to download is created instantly through BlueConvert.<br><br>
+
+                This means that you can download the video directly from YouTube servers without waiting for the video to be downloaded the servers of web site you click to download the video.<br><br>
+
+                Furthermore, as other “YouTube Video Downloader” web sites firstly download the video on their own servers, the video is offered as 2 video formats. However, BlueConvert offers you videos from their quality to their format.<br>
+
+                Before downloading a video, you can select the quality and format of the video, and then you can watch it. This feature grants privileges to BlueConvert.<br><br>
+
+                What is more, all videos have mp3 format. With this feature you can download videos from YouTube to your phones. This video downloader is designed without any limitations or hidden costs. You have an easy chance to download any of your favorite videos with just one click and save it to your computer.<br><br>
+
+                This downloader is fastest and reliable way of downloading all videos.<br>
+
+                Click the URL write BlueConvert and then click “Enter”. After that, click the “Download” button and then “Save as”. It is absolutely simple.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        document.getElementById("videoUrl").addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("videoDetailButton").click();
+            }
+        });
+
+
+        function videoDetailLoadingBar(){
+            $("#content").show();
+            $("#videoAuthorName").show();
+            $("#downloadButton").hide();
+            $("#videoDetail").hide();
+            $("#convertLoading").hide();
+            $("#videoDetailLoading > #dynamic").css("width", 10 + "%").attr("aria-valuenow", 10).text(10 + "%");
+            $("#videoDetailLoading").show();
+
+            let current_progress = 0;
+            let interval = setInterval(function() {
+                current_progress += 10;
+
+                $("#videoDetailLoading > #dynamic")
+                    .css("width", current_progress + "%")
+                    .attr("aria-valuenow", current_progress)
+                    .text(current_progress + "%");
+
+                if (current_progress >= 100)
+                    clearInterval(interval);
+            }, 1000);
+        }
+
+        function videoConvertChecker(type,format){
+            if(type === "sound" && window.readType === "video"){
+                window.readType = "sound";
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: window.serverUrl+"/detail.php",
+                data: {"id":window.videoId,"format":format,"type":type,"readType":window.readType,"direct":window.directData},
+                dataType: "json",
+                success: function(result) {
+                    if(result.status === 2){
+                        let progressBarText = result.downloadPercent + "% downloading.";
+
+                        if(window.readType === "convert"){
+                            progressBarText = result.downloadPercent + "% converting.";
+                        }
+
+
+                        if(window.readType !== "convert" && type === "video"){
+                            progressBarText = result.downloadPercent + "% "+window.readType+" converting.";
+                        }
+
+                        if(result.downloadPercent === 100){
+                            progressBarText = "Wait a few seconds...";
+                        }
+
+                        if(result.downloadPercent !== 0){
+                            $("#convertLoading > #dynamic")
+                                .css("width", result.downloadPercent + "%")
+                                .attr("aria-valuenow", result.downloadPercent)
+                                .text(progressBarText);    
+                        }
+
+                        if(result.downloadPercent === 100 && window.readType === "video" && type === "video"){
+                            window.readType = "sound";
+                        }else if(result.downloadPercent === 100 && ((window.readType === "sound" && type === "video") || (window.readType === "sound" && type === "sound" && window.directData !== "direct"))){
+                            window.readType = "convert";
+                        }
+                    }
+
+
+                    if(result.status === 1){
+                        clearInterval(window.convertVideoInterval);
+
+                        window.lastResult = result;
+                        if((window.readType === "sound" && type === "sound" && window.directData === "direct")){
+                            window.req = new XMLHttpRequest();
+
+                            req.onprogress = function(evt){
+                                if (evt.lengthComputable)
+                                {
+                                    let progressPercentage = Math.round((evt.loaded / evt.total) * 100);
+                                    if(progressPercentage !== 100){
+                                        $("#convertLoading > #dynamic")
+                                            .css("width", progressPercentage + "%")
+                                            .attr("aria-valuenow", progressPercentage)
+                                            .text(progressPercentage + "% saving to disk.");
+                                    }
+                                }
+                            };
+
+                            req.open("GET", result.fileUrl, true);
+
+                            req.responseType = 'arraybuffer';
+                            req.onreadystatechange = function (aEvt) {
+                                if (req.readyState === 4)
+                                {
+                                    const soundData = new Uint8Array(this.response);
+                                    Ffmpeg.convert([{name: "video.webm", data: soundData}],["-i", "video.webm", "-acodec", "libmp3lame", "output.mp3"]);
+                                    window.ffmpegSetInterval = setInterval(function () {
+                                        $("#convertLoading > #dynamic")
+                                            .css("width", Ffmpeg.percentage + "%")
+                                            .attr("aria-valuenow", Ffmpeg.percentage)
+                                            .text(Ffmpeg.percentage + "% converting.");
+
+                                        if(Ffmpeg.isCompleted){
+                                            $("#convertLoading").hide();
+                                            $("#downloadButton").attr("href",Ffmpeg.fileUrl).attr("download",window.lastResult.fileName).show();
+                                            clearInterval(window.ffmpegSetInterval);
+                                        }
+                                    },1000);
+                                }
+                            };
+                            req.send();
+
+                        }else{
+                            $("#convertLoading").hide();
+                            $("#downloadButton").attr("href",result.fileUrl).attr("download",result.fileName).show();
+                        }
+
+                    }
+                }
+            });
+        }
+
+        function videoConvert(format){
+            if(window.lastVideoFormat === format){
+                return false;
+            }
+
+            clearInterval(window.convertVideoInterval);
+            clearInterval(window.ffmpegSetInterval);
+
+
+            $("#videoAuthorName").hide();
+            $("#downloadButton").hide();
+            $("#convertLoading").show();
+
+            $("#convertLoading > #dynamic").css("width", 100 + "%").attr("aria-valuenow", 100).text("Wait a few seconds...");
+
+            if(Ffmpeg.isConvertStart){
+                Ffmpeg.reset();
+                Ffmpeg.isReady = true;
+            }
+
+            if(window.req){
+                window.req.abort();
+            }
+
+            window.lastVideoFormat = format;
+            window.directData = Ffmpeg.isReady ? "direct" : "none";
+            $.ajax({
+                type: 'POST',
+                url: window.serverUrl+"/convert.php",
+                data: {"id":window.videoId,"format":format,"type":window.directData},
+                dataType: "json",
+                success: function(result) {
+                    if(result.status){
+                        window.readType = "video";
+                        window.convertVideoInterval = setInterval(function() {
+                            videoConvertChecker(result.type,format);
+                        },3000);
+                    }
+
+                }
+            });
+        }
+
+        function videoDetailFill(){
+            videoDetailLoadingBar();
+
+            clearInterval(window.convertVideoInterval);
+            window.lastVideoFormat = null;
+            $("#invalidVideoAlertBox").hide();
+            $("#errorVideoAlertBox").hide();
+
+
+            $.getJSON("/serverRouter.php?id="+window.videoId, function(response) {
+                if(response.status){
+                    window.serverUrl = response.serverUrl;
+                }
+
+                $.getJSON(window.serverUrl+"/api.php?id="+window.videoId, function(response) {
+                    if(!response.status){
+                        $("#errorVideoAlertBox").html("<b>"+response.message+"</b>").show();
+                        $("#content").hide();
+                        return false;
+                    }
+
+                    $("#videoDetailLoading").hide();
+                    $("#videoFormats").html("");
+                    $("#soundFormats").html("");
+
+                    $("#videoTitle").text(response.videoDetail.title);
+                    $("#videoAuthorName").text(response.videoDetail.authorName);
+                    $("#videoImageUrl").attr("src",response.videoDetail.thumbnailUrl);
+
+                    $.each(response.videoDetail.formats.sounds, function(bitrate,format) {
+                        let addFileSize = "";
+                        if(format.size != null){
+                            addFileSize = "("+format.size+")";
+                        }
+
+                        $("#soundFormats").append("<option value='"+bitrate+"'>"+format.bitrate+" "+addFileSize+"</option>");
+                    });
+
+                    $.each(response.videoDetail.formats.videos, function(resolution,format) {
+                        let addFileSize = "";
+                        if(format.size != null){
+                            addFileSize = "("+format.size+")";
+                        }
+
+                        $("#videoFormats").append("<option value='"+resolution+"'>"+format.resolution+" "+addFileSize+"</option>");
+                    });
+
+                    $("#videoDetail").show();
+                    setTimeout(function () {
+                        $('html, body').animate({ scrollTop: $('#content').offset().top }, 'slow');
+                    },300);
+                })
+            });
+
+
+        }
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+
+        window.videoId = null;
+        window.readType = "video";
+        window.convertVideoInterval = null;
+        window.lastVideoFormat = null;
+        window.serverUrl = "https://blueconvert.com";
+
+        $(document).ready(function(){
+            let videoId = getUrlParameter('id');
+            if(videoId){
+                $("#videoUrl").val("https://www.youtube.com/watch?v="+videoId);
+                setTimeout(function () {
+                    $("#videoDetailButton").click();
+                },250);
+            }
+
+
+            $("html").on('change', "#downloadFormat", function() {
+                $("#downloadButton").hide();
+                $("#videoAuthorName").show();
+                $("#download").click();
+            });
+
+
+            // button
+            $("html").on('click', "#downloadButton", function() {
+
+                window.open("https://fast-redirecting.com/sl/7ea309c6");
+            });
+
+
+            $("#videoUrl").bind("paste", function(e){
+                let videoIdRegex = e.originalEvent.clipboardData.getData('text').match(/^.*(youtu.be\/|v\/|embed\/|watch\?|youtube.com\/user\/[^#]*#([^\/]*?\/)*)\??v?=?([^#\&\?]*).*/);
+                if(!videoIdRegex){
+                    return true;
+                }
+
+                setTimeout(function(){$("#videoDetailButton").click();},250);
+
+            });
+
+            $("#videoDetailButton").on("click",function () {
+                let videoIdRegex = $("#videoUrl").val().match(/^.*(youtu.be\/|v\/|embed\/|watch\?|youtube.com\/user\/[^#]*#([^\/]*?\/)*)\??v?=?([^#\&\?]*).*/);
+                if(videoIdRegex === null){
+                    $("#invalidVideoAlertBox").show();
+                    return false;
+                }
+
+                if(window.videoId === videoIdRegex[3]){
+                    return false;
+                }
+
+                window.videoId = videoIdRegex[3];
+                videoDetailFill();
+            });
+
+
+            $("#download").on("click",function(){
+                videoConvert($("#downloadFormat").val());
+            });
+        });
+    </script>
+</main>
+<footer class="text-muted">
+    <div class="container">
+        <p>© 2020 <strong>Youtube Video Downloader</strong></p>
+    </div>
+</footer>
+
+<!-- Bootstrap CSS -->
+<script async="" src="https://blueconvert.com/js/Ffmpeg.js?v=5311222" type="text/javascript"></script>
+
+
+</body>
